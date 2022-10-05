@@ -4,4 +4,5 @@ import router from "./router/router";
 import { Quasar } from "quasar";
 import quasarUserOptions from "./plugins/quasar-user-options";
 
-createApp(App).use(Quasar, quasarUserOptions, router).mount("#app");
+const app = createApp(App).use(router);
+app.use(Quasar, quasarUserOptions).mount("#app");
