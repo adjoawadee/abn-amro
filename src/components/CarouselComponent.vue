@@ -1,5 +1,5 @@
+<!-- eslint-disable prettier/prettier -->
 <template>
-  <div class="q-pa-md">
     <q-carousel
       class="main-carousel"
       animated
@@ -7,64 +7,77 @@
       arrows
       navigation
       infinite
+      swipeable
+      height="80%"
     >
       <q-carousel-slide
-        :name="1"
-        img-src="https://cdn.quasar.dev/img/mountains.jpg"
+        v-for="show in shows"
+        :key="show.id"
+        :name="show.id"
+        :img-src="show.image.original"
+        class="no-padding"
       >
-        <div class="absolute-bottom custom-caption">
-          <div class="text-h3 text-bold">Movie Title</div>
+      <div class="custom-caption items-center no-margin row">
+        <div class="col-md-4 col-lg-4 offset-md-2 offset-lg-2">
+        <div class="caption-inner">
+          <div class="text-h1 no-margin text-uppercase text-bold">{{ show.name }}</div>
           <div>
             <q-rating
               v-model="ratingModel"
-              size="2em"
+              size="3em"
               color="orange"
               readonly
             />
           </div>
-          <div class="text-subtitle1">Drama</div>
-          <div class="text-subtitle1">staring:</div>
+          <div class="text-h6 q-pt-sm">
+            <span v-for="genre in show.genres" :key="genre"
+              >{{ genre }} |
+            </span>
+          </div>
+          <div class="text-h4 q-pt-sm">{{ show.runtime }} mins</div>
+          <div class="text-body2 q-pt-sm">{{ show.summary }}</div>
         </div>
+       </div>
+      </div>
+       
+       
       </q-carousel-slide>
-      <q-carousel-slide
-        :name="2"
-        img-src="https://cdn.quasar.dev/img/parallax1.jpg"
-      />
-      <q-carousel-slide
-        :name="3"
-        img-src="https://cdn.quasar.dev/img/parallax2.jpg"
-      />
-      <q-carousel-slide
-        :name="4"
-        img-src="https://cdn.quasar.dev/img/quasar.jpg"
-      />
     </q-carousel>
-  </div>
 </template>
 
 <script lang="ts">
-import { ref } from "vue";
+import { defineComponent, ref, PropType } from "vue";
+import Show from "@/types/Show";
 
-export default {
+export default defineComponent({
+  props: {
+    shows: {
+      required: true,
+      type: Object as PropType<Show[]>,
+    },
+  },
   setup() {
     return {
       slide: ref(1),
       ratingModel: ref(3),
     };
   },
-};
+});
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .main-carousel {
-  height: 93vh !important;
+  position: relative;
 }
 .custom-caption {
+  width: 100%;
+  height: 100%;
   padding: 40px;
   color: $grey-2;
+  background: rgb(0, 0, 0);
   background: linear-gradient(
-    0deg,
-    $blue-grey-10 0%,
+    90deg,
+    rgba(0, 0, 0, 1) 38%,
     rgba(255, 255, 255, 0) 100%
   );
 }

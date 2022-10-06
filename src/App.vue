@@ -3,7 +3,9 @@
     <header class="header">
       <div class="row flex-center">
         <div class="col-xs-12 col-sm-6 col-md-4">
-          <p class="q-pt-md text-grey-2 text-weight-bold text-h6">ABNShows</p>
+          <p class="q-pt-md q-pl-xl text-grey-2 text-weight-bold text-h6">
+            ABNShows
+          </p>
         </div>
         <div class="q-pa-md q-pr-lg col-xs-12 col-sm-6 col-md-8">
           <div class="q-gutter-xs" style="max-width: 600px">
@@ -44,6 +46,5 @@ body {
   background-repeat: no-repeat;
   background-size: 100% 100%;
   background-color: black;
-  padding: 0 5% 0 5%;
 }
 </style>
