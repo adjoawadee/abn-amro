@@ -1,4 +1,5 @@
-# abn-tv-app
+# ABNShows
+First project in Vue 3 using Typescript, Quasar and Axios.
 
 ## Project setup
 ```
