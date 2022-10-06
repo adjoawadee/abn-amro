@@ -1,4 +1,4 @@
-import { RouteRecordRaw, createRouter, createWebHashHistory } from "vue-router";
+import { RouteRecordRaw, createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import InfoView from "../views/InfoView.vue";
 const routes: Array<RouteRecordRaw> = [
@@ -8,13 +8,13 @@ const routes: Array<RouteRecordRaw> = [
     component: HomeView,
   },
   {
-    path: "/show",
-    name: "Show",
+    path: "/shows/:id",
+    name: "InfoView",
     component: InfoView,
   },
 ];
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes,
 });
 export default router;

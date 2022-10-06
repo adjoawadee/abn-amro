@@ -3,7 +3,7 @@
     <!-- carousel -->
     <CarouselComponent :shows="bannerShows"></CarouselComponent>
     <!-- scroller -->
-    <ScrollContent></ScrollContent>
+    <ScrollContent :shows="shows"></ScrollContent>
   </div>
 </template>
 
@@ -20,7 +20,7 @@ export default defineComponent({
   components: { CarouselComponent, ScrollContent },
   data() {
     return {
-      shows: new Array<Show>(4),
+      shows: new Array<Show>(),
     };
   },
   methods: {

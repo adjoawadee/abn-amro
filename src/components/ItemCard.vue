@@ -1,15 +1,16 @@
+<!-- eslint-disable prettier/prettier -->
 <template>
   <div class="show-item-card">
     <div style="width: 250px" class="q-pa-md card-image">
-      <q-img src="https://placeimg.com/200/300/nature">
+      <q-img :src= show.image.medium>
         <div class="absolute-full text-subtitle2 flex flex-center card-button">
           <q-btn
-            to="/show"
             unelevated
             rounded
             color="red-7"
             label="Show more"
-          />
+            :to="'/shows/' + show.id"
+          ></q-btn>
         </div>
       </q-img>
     </div>
@@ -17,7 +18,17 @@
 </template>
 
 <script lang="ts">
-export default {};
+import { defineComponent, PropType } from "vue";
+import Show from "@/types/Show";
+
+export default defineComponent({
+  props: {
+    show: {
+      required: true,
+      type: Object as PropType<Show>,
+    },
+  },
+});
 </script>
 
 <style lang="scss" scoped>

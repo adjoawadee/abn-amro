@@ -1,16 +1,14 @@
 <template>
-  <div class="q-pl-xl row">
-    <div class="col">
-      <h5 class="text-bold">Popular</h5>
-    </div>
-  </div>
+  <ScrollTitle></ScrollTitle>
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12">
       <q-scroll-area style="height: 400px">
         <div class="row no-wrap">
-          <div v-for="n in 20" :key="n">
-            <ItemCard></ItemCard>
-          </div>
+          <ItemCard
+            v-for="(show, index) in shows.slice(0, 15)"
+            :show="show"
+            :key="index"
+          ></ItemCard>
         </div>
       </q-scroll-area>
     </div>
@@ -18,6 +16,30 @@
 </template>
 
 <script lang="ts">
+import { defineComponent, PropType } from "vue";
 import ItemCard from "./ItemCard.vue";
-export default { components: { ItemCard } };
+import ScrollTitle from "./ScrollTitle.vue";
+import Show from "@/types/Show";
+
+export default defineComponent({
+  components: { ScrollTitle, ItemCard },
+  props: {
+    shows: {
+      required: true,
+      type: Object as PropType<Show[]>,
+    },
+  },
+  methods: {
+    filteredShows(genre: string): Show[] {
+      return this.shows.filter((show) => {
+        show.genres.includes(genre);
+      });
+    },
+  },
+  computed: {
+    filterByDrama(): Show[] {
+      return this.filteredShows("Drama");
+    },
+  },
+});
 </script>

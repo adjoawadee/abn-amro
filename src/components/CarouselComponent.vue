@@ -1,48 +1,45 @@
-<!-- eslint-disable prettier/prettier -->
 <template>
-    <q-carousel
-      class="main-carousel"
-      animated
-      v-model="slide"
-      arrows
-      navigation
-      infinite
-      swipeable
-      height="80%"
+  <q-carousel
+    class="main-carousel"
+    animated
+    v-model="slide"
+    arrows
+    navigation
+    infinite
+    swipeable
+    height="80%"
+  >
+    <q-carousel-slide
+      v-for="show in shows"
+      :key="show.id"
+      :name="show.id"
+      :img-src="show.image.original"
+      class="no-padding"
     >
-      <q-carousel-slide
-        v-for="show in shows"
-        :key="show.id"
-        :name="show.id"
-        :img-src="show.image.original"
-        class="no-padding"
-      >
       <div class="custom-caption items-center no-margin row">
         <div class="col-md-4 col-lg-4 offset-md-2 offset-lg-2">
-        <div class="caption-inner">
-          <div class="text-h1 no-margin text-uppercase text-bold">{{ show.name }}</div>
-          <div>
-            <q-rating
-              v-model="ratingModel"
-              size="3em"
-              color="orange"
-              readonly
-            />
+          <div class="caption-inner">
+            <div class="text-h1 no-margin text-uppercase text-bold">
+              {{ show.name }}
+            </div>
+            <q-chip icon="star" color="orange" size="18px">
+              <span class="q-pa-sm" style="display: inline">
+                {{ show.rating.average }}
+              </span>
+            </q-chip>
+
+            <div class="text-h6 q-pt-sm">
+              <span v-for="genre in show.genres" :key="genre"
+                >{{ genre }} |
+              </span>
+            </div>
+            <div class="text-h4 q-pt-sm">{{ show.runtime }} mins</div>
+            <div v-html="show.summary" class="text-body2 q-pt-sm"></div>
           </div>
-          <div class="text-h6 q-pt-sm">
-            <span v-for="genre in show.genres" :key="genre"
-              >{{ genre }} |
-            </span>
-          </div>
-          <div class="text-h4 q-pt-sm">{{ show.runtime }} mins</div>
-          <div class="text-body2 q-pt-sm">{{ show.summary }}</div>
         </div>
-       </div>
       </div>
-       
-       
-      </q-carousel-slide>
-    </q-carousel>
+    </q-carousel-slide>
+  </q-carousel>
 </template>
 
 <script lang="ts">
@@ -59,8 +56,13 @@ export default defineComponent({
   setup() {
     return {
       slide: ref(1),
-      ratingModel: ref(3),
+      ratingModel: ref(1),
     };
+  },
+  methods: {
+    updateRating(rating: number) {
+      this.ratingModel = Math.ceil(rating / 5) * 5;
+    },
   },
 });
 </script>

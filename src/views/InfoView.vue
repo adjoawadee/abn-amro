@@ -1,21 +1,22 @@
 <template>
-  <div class="q-pt-md row content">
+  <div class="q-pa-md row content">
     <div
       class="content-poster col-xs-12 col-sm-12 col-md-4"
-      style="
-        background-image: url(https://static.tvmaze.com/uploads/images/original_untouched/73/184895.jpg);
-        height: 600px;
-        width: 450px;
-        background-size: cover;
-        background-position: center;
-      "
+      :style="{ backgroundImage: `url(${showDetails.image.medium})` }"
     ></div>
+
     <div class="content-description col-xs-12 col-sm-12 col-md-5 offset-md-1">
-      <h2 class="text-weight-bolder no-margin text-uppercase">Movie Title</h2>
-      <h6>Genre <span> | </span> 2h 30min</h6>
-      <div class="text-subtitle1">A lot happening here we need an api</div>
-      <div class="text-subtitle1">Director:</div>
-      <div class="watch-more-btn">
+      <h2 class="text-weight-bolder no-margin text-uppercase">
+        {{ showDetails.name }}
+      </h2>
+      <div class="text-h5 q-pt-lg">
+        <span v-for="genre in showDetails.genres" :key="genre"
+          >{{ genre }} |
+        </span>
+        <div class="text-h4 q-pt-sm">{{ showDetails.runtime }} mins</div>
+      </div>
+      <div v-html="showDetails.summary" class="text-body2 q-pt-sm"></div>
+      <div class="watch-more-btn" color="orange">
         <q-btn unelevated rounded color="primary" label="Watch Trailer" />
       </div>
     </div>
@@ -38,7 +39,7 @@
       <q-scroll-area style="height: 400px">
         <div class="row no-wrap">
           <div v-for="n in 20" :key="n">
-            <ItemCard></ItemCard>
+            <!-- <ItemCard></ItemCard> -->
           </div>
         </div>
       </q-scroll-area>
@@ -47,14 +48,57 @@
 </template>
 
 <script lang="ts">
-import ItemCard from "../components/ItemCard.vue";
-export default { components: { ItemCard } };
+import TvShowDataService from "@/services/TvShowDataService";
+import { anyTypeAnnotation } from "@babel/types";
+import { computed, ComputedRef, defineComponent } from "@vue/runtime-core";
+import { useRoute } from "vue-router";
+import Show from "@/types/Show";
+import Cast from "@/types/Cast";
+import ItemCard from "@/components/ItemCard.vue";
+
+export default defineComponent({
+  name: "InfoView",
+  // components: { ItemCard },
+  data() {
+    return {
+      showDetails: {} as Show & Cast,
+    };
+  },
+  setup() {
+    const isLoading = true;
+    const route = useRoute();
+    const id = computed(() => route.params.id);
+    return {
+      isLoading,
+      id,
+    };
+  },
+  methods: {
+    loadShowDetails() {
+      TvShowDataService.getShowDetails(this.id).then((response) => {
+        this.showDetails = response.data;
+        console.log(this.showDetails);
+        this.isLoading = false;
+      });
+    },
+  },
+  mounted() {
+    this.loadShowDetails();
+  },
+});
 </script>
 
 <style lang="scss" scoped>
 .content {
   height: auto;
-  padding: 5% 0;
+  padding: 5%;
+}
+
+.content > .content-poster {
+  height: 600px;
+  width: 450px;
+  background-size: cover;
+  background-position: center;
 }
 
 .content > .content-description {
