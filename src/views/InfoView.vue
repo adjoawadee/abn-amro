@@ -20,37 +20,21 @@
         <q-btn unelevated rounded color="primary" label="Watch Trailer" />
       </div>
     </div>
-    <div class="content-extras col-xs-12 col-sm-12 col-md-1 offset-md-3">
+    <div class="content-extras col-xs-12 col-sm-12 col-md-1">
       <div>
-        <h2 class="text-weight-bolder no-margin text-uppercase">7.9</h2>
+        <h2 class="text-weight-bolder no-margin text-uppercase">
+          {{ showDetails.rating.average }}
+        </h2>
         <span>/10</span>
       </div>
       <div class="text-subtitle1">33,335 ratings</div>
-    </div>
-  </div>
-  <!-- casts -->
-  <div class="q-pl-md row">
-    <div class="col">
-      <h5 class="text-bold">Popular</h5>
-    </div>
-  </div>
-  <div class="row actor-list">
-    <div class="col-xs-12 col-sm-12 col-md-12">
-      <q-scroll-area style="height: 400px">
-        <div class="row no-wrap">
-          <div v-for="n in 20" :key="n">
-            <!-- <ItemCard></ItemCard> -->
-          </div>
-        </div>
-      </q-scroll-area>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import TvShowDataService from "@/services/TvShowDataService";
-import { anyTypeAnnotation } from "@babel/types";
-import { computed, ComputedRef, defineComponent } from "@vue/runtime-core";
+import { computed, defineComponent } from "@vue/runtime-core";
 import { useRoute } from "vue-router";
 import Show from "@/types/Show";
 import Cast from "@/types/Cast";
@@ -74,15 +58,14 @@ export default defineComponent({
     };
   },
   methods: {
-    loadShowDetails() {
+    async loadShowDetails() {
       TvShowDataService.getShowDetails(this.id).then((response) => {
         this.showDetails = response.data;
-        console.log(this.showDetails);
         this.isLoading = false;
       });
     },
   },
-  mounted() {
+  created() {
     this.loadShowDetails();
   },
 });
@@ -109,7 +92,7 @@ export default defineComponent({
 
 .content > .content-description .watch-more-btn {
   position: absolute;
-  bottom: 0;
+  bottom: 5px;
 }
 
 .actor-list {

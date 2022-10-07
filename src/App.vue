@@ -4,7 +4,9 @@
       <div class="row flex-center">
         <div class="col-xs-12 col-sm-6 col-md-4">
           <p class="q-pt-md q-pl-xl text-grey-2 text-weight-bold text-h6">
-            ABNShows
+            <router-link style="text-decoration: none; color: inherit" to="/"
+              >ABNShows</router-link
+            >
           </p>
         </div>
         <div class="q-pa-md q-pr-lg col-xs-12 col-sm-6 col-md-8">

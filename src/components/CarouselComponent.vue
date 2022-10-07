@@ -41,11 +41,9 @@
     </q-carousel-slide>
   </q-carousel>
 </template>
-
 <script lang="ts">
 import { defineComponent, ref, PropType } from "vue";
 import Show from "@/types/Show";
-
 export default defineComponent({
   props: {
     shows: {

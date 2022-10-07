@@ -24,7 +24,7 @@ export default defineComponent({
     };
   },
   methods: {
-    loadPopularShows() {
+    async loadPopularShows() {
       TvShowDataService.getPopularShows().then((response: ResponseData) => {
         this.shows = response.data;
       });
