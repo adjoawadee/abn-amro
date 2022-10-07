@@ -1,6 +1,8 @@
 # ABNShows 📺
 First project in Vue 3 using Typescript, Quasar and Axios.
 
+Hosted on Github pages: https://adjoawadee.github.io/
+
 Having to work with Vue 3 for the first time, I've created a TV Show web application that is still work in progress.
 I realized, not being familiar with a lot of the concepts of Vue, can be time consuming but I can only learn with trial and error.
 
